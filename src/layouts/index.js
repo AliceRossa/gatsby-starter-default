@@ -1,45 +1,58 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import 'modern-normalize/modern-normalize.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import config from '../../data/SiteConfig';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
+import '../../node_modules/bootstrap/scss/bootstrap.scss';
+import './index.module.scss';
 
-import Header from '../components/header'
-import './index.css'
+class MainLayout extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+    children: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired, // eslint-disable-line
+  };
 
-const Layout = ({ children, data }) => (
-  <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
-    />
-    <Header siteTitle={data.site.siteMetadata.title} />
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '0px 1.0875rem 1.45rem',
-        paddingTop: 0,
-      }}
-    >
-      {children()}
-    </div>
-  </div>
-)
-
-Layout.propTypes = {
-  children: PropTypes.func,
+  render() {
+    const { location, children, data } = this.props;
+    return (
+      <div>
+        <Helmet>
+          <html lang={data.site.siteMetadata.siteLanguage} />
+          <title>{config.siteTitle}</title>
+          <meta
+            name="description"
+            content={data.site.siteMetadata.siteDescription}
+          />
+        </Helmet>
+        <Nav
+          siteTitle={data.site.siteMetadata.siteTitle}
+          pathname={location.pathname}
+        />
+        {children()}
+        <Footer copyright={data.site.siteMetadata.rssMetadata.copyright} />
+      </div>
+    );
+  }
 }
 
-export default Layout
+export default MainLayout;
 
 export const query = graphql`
   query SiteTitleQuery {
     site {
       siteMetadata {
-        title
+        siteTitle
+        siteDescription
+        siteLanguage
+        rssMetadata {
+          copyright
+        }
       }
     }
   }
-`
+`;

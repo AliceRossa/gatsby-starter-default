@@ -1,33 +1,33 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Header.module.scss';
 
-const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </div>
-)
+class Header extends React.Component {
+  static propTypes = {
+    backgroundImage: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    lead: PropTypes.string,
+  };
 
-export default Header
+  static defaultProps = {
+    backgroundImage: 'https://unsplash.it/1900/1080?image=1076',
+    lead: '',
+  };
+
+  render() {
+    const { backgroundImage, title, lead } = this.props;
+    return (
+      <header
+        className={`py-5 ${styles.root}`}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="container mt-5 text-center">
+          <h1>{title}</h1>
+          {lead && <p className="lead">{lead}</p>}
+        </div>
+      </header>
+    );
+  }
+}
+
+export default Header;
