@@ -1,11 +1,12 @@
 import 'modern-normalize/modern-normalize.css';
+import 'bootstrap/scss/bootstrap.scss';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import config from '../../data/SiteConfig';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import '../../node_modules/bootstrap/scss/bootstrap.scss';
 import './index.module.scss';
 
 class MainLayout extends React.Component {

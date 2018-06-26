@@ -8,8 +8,7 @@ module.exports = {
   siteLogo: '/logos/logo-1024.png', // Logo used for SEO and manifest
   siteRss: '/rss.xml', // Path to the RSS file
 
-  siteFBAppID: '1825356251115265', // Facebook App ID
-  siteGATrackingID: 'UA-47311644-4', // Google Analytics
+  siteGATrackingID: 'UA-XXXXX-X', // Google Analytics
 
   // Manifest and Progress color
   themeColor: '#3498DB',
